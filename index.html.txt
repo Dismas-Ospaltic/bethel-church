@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bethel Orthodox Church</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        royal: {
+                            blue: '#1e3a8a', // blue-900
+                            purple: '#581c87', // purple-900
+                            light: '#4c1d95', // violet-900
+                            gold: '#fbbf24', // amber-400
+                        }
+                    },
+                    fontFamily: {
+                        'serif': ['Cinzel', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for Slider and Animations */
+        .slider-container {
+            display: flex;
+            transition: transform 0.7s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+        }
+        
+        /* Modal Transitions */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 text-white py-4 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-cross text-royal-gold text-2xl mr-2"></i>
+                    <a href="#" class="font-serif font-bold text-2xl tracking-wide">Bethel Orthodox</a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 items-center font-medium">
+                    <a href="#about" class="hover:text-royal-gold transition">About Us</a>
+                    <a href="#services" class="hover:text-royal-gold transition">Services</a>
+                    <a href="#announcements" class="hover:text-royal-gold transition">Announcements</a>
+                    <a href="#gallery" class="hover:text-royal-gold transition">Gallery</a>
+                    <button onclick="openModal('authModal')" class="hover:text-royal-gold transition">Member Login</button>
+                    <a href="#donate" class="bg-royal-gold text-royal-blue px-5 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow-lg">Donate</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-royal-gold focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-royal-blue absolute w-full left-0 top-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col font-medium">
+                <a href="#about" class="block px-3 py-2 hover:bg-royal-purple rounded transition">About Us</a>
+                <a href="#services" class="block px-3 py-2 hover:bg-royal-purple rounded transition">Services</a>
+                <a href="#announcements" class="block px-3 py-2 hover:bg-royal-purple rounded transition">Announcements</a>
+                <a href="#gallery" class="block px-3 py-2 hover:bg-royal-purple rounded transition">Gallery</a>
+                <button onclick="openModal('authModal')" class="block w-full text-left px-3 py-2 hover:bg-royal-purple rounded transition">Member Login</button>
+                <a href="#donate" class="block text-center mt-4 bg-royal-gold text-royal-blue px-3 py-2 rounded font-bold">Donate</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Showcase Section -->
+    <section class="relative h-screen flex items-center justify-center text-center">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Congregation" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-r from-royal-blue/80 to-royal-purple/80 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl px-4 mt-20">
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight text-shadow-lg">Welcome to <br><span class="text-royal-gold">Bethel Orthodox Church</span></h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 font-light">A place of worship, community, and spiritual growth in the Orthodox faith.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 border-t-0">
+                <a href="#about" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-royal-blue transition">Discover More</a>
+                <a href="#services" class="bg-royal-gold border-2 border-royal-gold text-royal-blue px-8 py-3 rounded-full font-semibold hover:bg-yellow-400 transition shadow-lg">Join Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bible Quote of the Day -->
+    <section class="py-16 bg-white relative overflow-hidden">
+        <div class="absolute -left-10 top-0 text-gray-100 opacity-50 transform rotate-12">
+            <i class="fa-solid fa-quote-left text-9xl"></i>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-sm font-bold tracking-widest text-royal-purple uppercase mb-4">Verse of the Day</h2>
+            <blockquote class="font-serif text-2xl md:text-4xl text-gray-800 leading-relaxed italic mb-6">
+                "For where two or three are gathered together in my name, there am I in the midst of them."
+            </blockquote>
+            <cite class="text-lg font-semibold text-royal-blue">— Matthew 18:20</cite>
+        </div>
+    </section>
+
+    <!-- About Us, Mission & Vision -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl font-bold text-royal-blue mb-4">About Us</h2>
+                <div class="w-24 h-1 bg-royal-gold mx-auto rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1548625361-ecde71a2be10?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Church Interior" class="rounded-lg shadow-2xl">
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-royal-purple mb-3 flex items-center"><i class="fa-solid fa-book-bible text-royal-gold mr-3"></i> Our Mission</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            To proclaim the Gospel of Jesus Christ, preserving the rich traditions of the Orthodox faith, and providing a loving community where all can experience the grace of God. We are dedicated to spiritual transformation, liturgical worship, and serving those in need.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-royal-purple mb-3 flex items-center"><i class="fa-solid fa-eye text-royal-gold mr-3"></i> Our Vision</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            To be a beacon of spiritual light and hope in our city. We envision a growing, diverse congregation united in Christ, equipping members for ministry, and making a profound impact on the world through love, charity, and unceasing prayer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services & Time -->
+    <section id="services" class="py-20 bg-gradient-to-b from-royal-blue to-royal-purple text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl font-bold mb-4 text-white">Worship Services</h2>
+                <div class="w-24 h-1 bg-royal-gold mx-auto rounded"></div>
+                <p class="mt-4 text-gray-200">Join us in fellowship and worship throughout the week.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-14 h-14 bg-royal-gold text-royal-blue rounded-full flex items-center justify-center text-2xl mb-6 mx-auto">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-center mb-4">Sunday Divine Liturgy</h3>
+                    <ul class="space-y-3 text-center text-gray-200">
+                        <li class="border-b border-white/20 pb-2">Matins (Morning Prayer)<br><span class="font-bold text-royal-gold">8:30 AM</span></li>
+                        <li class="border-b border-white/20 pb-2">Divine Liturgy<br><span class="font-bold text-royal-gold">10:00 AM</span></li>
+                        <li>Sunday School<br><span class="font-bold text-royal-gold">12:00 PM</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:transform hover:-translate-y-2 transition duration-300 transform md:scale-105 shadow-2xl relative">
+                    <div class="absolute top-0 right-0 bg-royal-gold text-royal-blue text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">MAIN</div>
+                    <div class="w-14 h-14 bg-royal-gold text-royal-blue rounded-full flex items-center justify-center text-2xl mb-6 mx-auto">
+                        <i class="fa-solid fa-church"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-center mb-4">Wednesday Vespers</h3>
+                    <ul class="space-y-3 text-center text-gray-200">
+                        <li class="border-b border-white/20 pb-2">Evening Prayer<br><span class="font-bold text-royal-gold">6:00 PM</span></li>
+                        <li class="border-b border-white/20 pb-2">Bible Study & Fellowship<br><span class="font-bold text-royal-gold">7:00 PM</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="w-14 h-14 bg-royal-gold text-royal-blue rounded-full flex items-center justify-center text-2xl mb-6 mx-auto">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-center mb-4">Saturday Vigil</h3>
+                    <ul class="space-y-3 text-center text-gray-200">
+                        <li class="border-b border-white/20 pb-2">Confessions<br><span class="font-bold text-royal-gold">4:30 PM</span></li>
+                        <li>Great Vespers<br><span class="font-bold text-royal-gold">5:30 PM</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcements -->
+    <section id="announcements" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-serif text-4xl font-bold text-royal-blue mb-4">Announcements</h2>
+                    <div class="w-24 h-1 bg-royal-gold rounded"></div>
+                </div>
+                <a href="#" class="text-royal-purple hover:text-royal-blue font-semibold mt-4 md:mt-0 flex items-center">View All Events <i class="fa-solid fa-arrow-right ml-2"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Announcement 1 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-royal-blue text-white text-center rounded-lg overflow-hidden flex flex-col w-16 shadow-lg">
+                            <span class="bg-royal-gold text-royal-blue text-xs font-bold py-1 uppercase">Oct</span>
+                            <span class="font-bold text-xl py-1">15</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif font-bold text-xl text-gray-800 mb-2">Annual Parish Festival</h3>
+                        <p class="text-gray-600 text-sm mb-4">Join us for our annual festival celebrating faith, food, and community. Fun activities for the whole family!</p>
+                        <p class="text-sm text-royal-purple font-semibold"><i class="fa-regular fa-clock mr-1"></i> 10:00 AM - 4:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Announcement 2 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1544427920-c49ccf112e52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-royal-blue text-white text-center rounded-lg overflow-hidden flex flex-col w-16 shadow-lg">
+                            <span class="bg-royal-gold text-royal-blue text-xs font-bold py-1 uppercase">Oct</span>
+                            <span class="font-bold text-xl py-1">22</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif font-bold text-xl text-gray-800 mb-2">Youth Retreat Weekend</h3>
+                        <p class="text-gray-600 text-sm mb-4">A special weekend dedicated to our youth. Spiritual growth, games, and fellowship at the camp.</p>
+                        <p class="text-sm text-royal-purple font-semibold"><i class="fa-regular fa-clock mr-1"></i> Friday - Sunday</p>
+                    </div>
+                </div>
+
+                <!-- Announcement 3 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1504445851080-2a8309df5592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-royal-blue text-white text-center rounded-lg overflow-hidden flex flex-col w-16 shadow-lg">
+                            <span class="bg-royal-gold text-royal-blue text-xs font-bold py-1 uppercase">Nov</span>
+                            <span class="font-bold text-xl py-1">05</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif font-bold text-xl text-gray-800 mb-2">Charity Food Drive</h3>
+                        <p class="text-gray-600 text-sm mb-4">Please bring non-perishable food items to support local families in need ahead of the holidays.</p>
+                        <p class="text-sm text-royal-purple font-semibold"><i class="fa-regular fa-clock mr-1"></i> After Sunday Liturgy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auto-Slidable Gallery -->
+    <section id="gallery" class="py-20 bg-gray-900 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+            <h2 class="font-serif text-4xl font-bold mb-4">Photo Gallery</h2>
+            <div class="w-24 h-1 bg-royal-gold mx-auto rounded"></div>
+            <p class="mt-4 text-gray-400">Glimpses of our vibrant church community.</p>
+        </div>
+
+        <div class="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
+            <!-- Slider Wrapper -->
+            <div id="gallerySlider" class="slider-container">
+                <div class="slide relative h-64 md:h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1548625361-ecde71a2be10?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Church inside" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <h3 class="text-xl font-bold">The Sanctuary</h3>
+                    </div>
+                </div>
+                <div class="slide relative h-64 md:h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Congregation Worship" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <h3 class="text-xl font-bold">Sunday Worship</h3>
+                    </div>
+                </div>
+                <div class="slide relative h-64 md:h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1519782500858-6202cc6011c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Choir/Worship" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <h3 class="text-xl font-bold">Community Choir</h3>
+                    </div>
+                </div>
+                <div class="slide relative h-64 md:h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1601142634808-38923eb7c560?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Candles" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <h3 class="text-xl font-bold">Moments of Prayer</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <button onclick="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-royal-blue transition">
+                <i class="fa-solid fa-chevron-left text-xl"></i>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-royal-blue transition">
+                <i class="fa-solid fa-chevron-right text-xl"></i>
+            </button>
+            
+            <!-- Indicators -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2" id="sliderIndicators">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="py-24 relative bg-royal-blue text-white">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Background" class="w-full h-full object-cover mix-blend-overlay">
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Support Our Ministry</h2>
+            <p class="text-xl text-gray-200 mb-10">Your generous contributions help us maintain our church, support community outreach programs, and spread the faith.</p>
+            
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 inline-block">
+                <h3 class="text-2xl font-bold mb-6">Make a Donation Today</h3>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button class="px-6 py-2 rounded-full border border-royal-gold text-royal-gold hover:bg-royal-gold hover:text-royal-blue font-bold transition">$25</button>
+                    <button class="px-6 py-2 rounded-full border border-royal-gold text-royal-gold hover:bg-royal-gold hover:text-royal-blue font-bold transition">$50</button>
+                    <button class="px-6 py-2 rounded-full border border-royal-gold text-royal-gold hover:bg-royal-gold hover:text-royal-blue font-bold transition">$100</button>
+                    <button class="px-6 py-2 rounded-full border border-royal-gold bg-royal-gold text-royal-blue font-bold shadow-lg">Custom Amount</button>
+                </div>
+                <button class="w-full bg-royal-gold text-royal-blue py-4 rounded-xl font-bold text-xl hover:bg-yellow-400 transition shadow-xl transform hover:-translate-y-1">
+                    <i class="fa-solid fa-heart mr-2"></i> Donate Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 border-t-4 border-royal-purple">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand Info -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-cross text-royal-gold text-2xl mr-2"></i>
+                        <span class="font-serif font-bold text-xl text-white">Bethel Orthodox</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-6">A welcoming community dedicated to preserving the Orthodox faith and sharing the love of Christ.</p>
+                    <!-- Social Links -->
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-royal-blue hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-royal-purple hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-royal-gold transition">About Us</a></li>
+                        <li><a href="#services" class="hover:text-royal-gold transition">Services</a></li>
+                        <li><a href="#announcements" class="hover:text-royal-gold transition">Announcements</a></li>
+                        <li><a href="#gallery" class="hover:text-royal-gold transition">Gallery</a></li>
+                        <li><a href="#" onclick="openModal('authModal')" class="hover:text-royal-gold transition">Become a Member</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact Us</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-3 text-royal-gold"></i> 123 Faith Avenue, Grace City, GC 45678</li>
+                        <li class="flex items-center"><i class="fa-solid fa-phone mr-3 text-royal-gold"></i> (555) 123-4567</li>
+                        <li class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-royal-gold"></i> info@bethelorthodox.org</li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Newsletter</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to receive weekly updates and devotionals.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
+                        <input type="email" placeholder="Email address" class="w-full px-4 py-2 bg-gray-800 text-white rounded-l focus:outline-none focus:ring-1 focus:ring-royal-gold" required>
+                        <button type="submit" class="bg-royal-gold text-royal-blue px-4 py-2 rounded-r font-bold hover:bg-yellow-400 transition"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2023 Bethel Orthodox Church. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal (Login / Signup) -->
+    <div id="authModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeModal('authModal')"></div>
+        
+        <!-- Modal Content -->
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden modal-enter" id="authModalContent">
+            <!-- Close btn -->
+            <button onclick="closeModal('authModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Tabs -->
+            <div class="flex border-b">
+                <button id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 py-4 text-center font-bold text-royal-blue border-b-2 border-royal-blue bg-gray-50">Login</button>
+                <button id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 py-4 text-center font-bold text-gray-500 border-b-2 border-transparent hover:bg-gray-50">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="p-8">
+                <div class="text-center mb-6">
+                    <h3 class="font-serif text-2xl font-bold text-royal-blue">Welcome Back</h3>
+                    <p class="text-sm text-gray-500">Log in to access member resources.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Login submitted'); closeModal('authModal');">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-royal-purple focus:ring-1 focus:ring-royal-purple" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-royal-purple focus:ring-1 focus:ring-royal-purple" required>
+                        <div class="text-right mt-1">
+                            <a href="#" class="text-xs text-royal-purple hover:underline">Forgot password?</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-royal-blue text-white font-bold py-3 rounded-lg hover:bg-royal-purple transition">Log In</button>
+                </form>
+            </div>
+
+            <!-- Signup Form (Hidden by default) -->
+            <div id="signupForm" class="p-8 hidden">
+                <div class="text-center mb-6">
+                    <h3 class="font-serif text-2xl font-bold text-royal-blue">Become a Member</h3>
+                    <p class="text-sm text-gray-500">Join our online community.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Signup submitted'); closeModal('authModal');">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-royal-purple focus:ring-1 focus:ring-royal-purple" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-royal-purple focus:ring-1 focus:ring-royal-purple" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-royal-purple focus:ring-1 focus:ring-royal-purple" required>
+                    </div>
+                    <button type="submit" class="w-full bg-royal-gold text-royal-blue font-bold py-3 rounded-lg hover:bg-yellow-400 transition shadow">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('bg-transparent', 'py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('bg-transparent', 'py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // 3. Auto-Slidable Gallery Logic
+        const sliderContainer = document.getElementById('gallerySlider');
+        const slides = document.querySelectorAll('.slide');
+        const indicatorsContainer = document.getElementById('sliderIndicators');
+        let currentSlide = 0;
+        let slideInterval;
+
+        // Create indicators
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('w-3', 'h-3', 'rounded-full', 'bg-white/50', 'transition', 'hover:bg-white');
+            dot.onclick = () => goToSlide(index);
+            indicatorsContainer.appendChild(dot);
+        });
+        const indicators = indicatorsContainer.children;
+
+        function updateSlider() {
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            Array.from(indicators).forEach((dot, index) => {
+                if(index === currentSlide) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-royal-gold');
+                } else {
+                    dot.classList.add('bg-white/50');
+                    dot.classList.remove('bg-royal-gold');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlider();
+            resetInterval();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlider();
+            resetInterval();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        // Initialize Slider
+        updateSlider();
+        resetInterval();
+
+        // 4. Modal Logic
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + 'Content');
+            modal.classList.remove('hidden');
+            // Trigger animation
+            setTimeout(() => {
+                content.classList.add('modal-enter-active');
+            }, 10);
+            
+            // Hide mobile menu if open
+            menu.classList.add('hidden');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + 'Content');
+            content.classList.remove('modal-enter-active');
+            // Wait for transition to finish
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // 5. Auth Tab Switcher
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const tabLogin = document.getElementById('tabLogin');
+            const tabSignup = document.getElementById('tabSignup');
+
+            if(tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                
+                tabLogin.classList.replace('text-gray-500', 'text-royal-blue');
+                tabLogin.classList.replace('border-transparent', 'border-royal-blue');
+                tabLogin.classList.add('bg-gray-50');
+                
+                tabSignup.classList.replace('text-royal-blue', 'text-gray-500');
+                tabSignup.classList.replace('border-royal-blue', 'border-transparent');
+                tabSignup.classList.remove('bg-gray-50');
+            } else {
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+
+                tabSignup.classList.replace('text-gray-500', 'text-royal-blue');
+                tabSignup.classList.replace('border-transparent', 'border-royal-blue');
+                tabSignup.classList.add('bg-gray-50');
+                
+                tabLogin.classList.replace('text-royal-blue', 'text-gray-500');
+                tabLogin.classList.replace('border-royal-blue', 'border-transparent');
+                tabLogin.classList.remove('bg-gray-50');
+            }
+        }
+    </script>
+</body>
+</html>
